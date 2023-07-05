@@ -15,7 +15,7 @@ void PortSetup(void)
     P1OUT = LED_RED;
     P4OUT = LED_GREEN;
 
-    /*//Button input
+    //Button input
     P1SEL0 = BIT6;                                 // TA0.CCI2A input capture pin, second function
     P1REN = BIT6;                                  // enable internal pull-down resistor=*/
 }

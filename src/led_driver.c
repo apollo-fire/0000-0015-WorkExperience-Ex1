@@ -18,7 +18,10 @@ void LedTimerInit(void)
 
 void LedDriverTimerLoad(const uint16_t value)
 {
+    TA1CTL &- ~ MC_3;
+    TA1R = 0U;
     TA1CCR0 = value;
+    TA1CTL |= MC__UP;
 }
 
 // Timer A0 interrupt service routine
