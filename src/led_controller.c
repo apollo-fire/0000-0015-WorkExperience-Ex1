@@ -3,10 +3,11 @@
 #include "led_driver.h"
 #endif
 
-#define FLASH_FAST          (true)
-#define FALSH_SLOW          (false)
+#define FLASH_ONE       (0U)
+#define FLASH_TWO       (1U)
+#define FLASH_THREE     (2U)
 
-static bool flashRate = FLASH_FAST;
+static uint8_t flashRate = FLASH_ONE;
 
 void LedControllerInit(void)
 {
@@ -16,15 +17,21 @@ void LedControllerInit(void)
 void LedControllerChangeFlashRate(void)
 {
     uint16_t rate = 0U;
-    if(flashRate == FLASH_FAST)
+    if(flashRate == FLASH_ONE)
     {
-        rate = FLASH_RATE_SLOW;
+        rate = FLASH_RATE_TWO;
+        flashRate = FLASH_TWO;
+    }
+    else if (flashRate == FLASH_TWO)
+    {
+        rate = FLASH_RATE_THREE;
+        flashRate = FLASH_THREE;
     }
     else
     {
-        rate = FLASH_RATE_FAST;
+        rate = FLASH_RATE_ONE;
+        flashRate = FLASH_ONE;
     }
-    flashRate = !flashRate;
     LedDriverTimerLoad(rate);
 }
 

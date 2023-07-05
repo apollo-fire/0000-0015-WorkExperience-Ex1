@@ -16,7 +16,7 @@ static uint8_t toggleCount = 0U;
 void LedTimerInit(void)
 {
     TA1CTL = TASSEL__SMCLK | MC__UP | ID__8;     // SMCLK, up mode
-    TA1CCR0 = FLASH_RATE_FAST;
+    TA1CCR0 = FLASH_RATE_ONE;
     TA1CCTL0 |= CCIE;                    // TACCR1 interrupt enabled
     TA1CTL |= TAIE;
 }
