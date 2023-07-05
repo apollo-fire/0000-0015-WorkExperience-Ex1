@@ -1,11 +1,16 @@
+
+
+#ifndef UNIT_TESTING
 #include <msp430.h>
 
 #include "led_driver.h"
-
-
+#endif
 
 #define LED_RED             (BIT0)
 #define LED_GREEN           (BIT0)
+#define TOGGLE_BOUNDARY     (1U)
+
+static uint8_t toggleCount = 0U;
 
 
 void LedTimerInit(void)
@@ -25,6 +30,7 @@ void LedDriverTimerLoad(const uint16_t value)
 }
 
 // Timer A0 interrupt service routine
+#ifndef UNIT_TESTING
 #if defined(__TI_COMPILER_VERSION__) || defined(__IAR_SYSTEMS_ICC__)
 #pragma vector = TIMER1_A0_VECTOR
 __interrupt void LedControllerISR (void)
@@ -32,7 +38,10 @@ __interrupt void LedControllerISR (void)
 void __attribute__ ((interrupt(TIMER0_A0_VECTOR))) Timer_A (void)
 #else
 #error Compiler not supported!
-#endif
+#endif /*defined(__GNUC__)*/
+#else
+void LedControllerISR (void)
+#endif /*#ifndef UNIT_TESTING*/
 {
     switch(__even_in_range(TA1IV,TA0IV_TAIFG))
     {
@@ -40,8 +49,16 @@ void __attribute__ ((interrupt(TIMER0_A0_VECTOR))) Timer_A (void)
             __no_operation();
             break;                                  // No interrupt
         case TA1IV_TAIFG:
-            P4OUT ^= LED_RED;
-            P1OUT ^= LED_GREEN;
+            if(toggleCount >= TOGGLE_BOUNDARY)
+            {
+                P4OUT ^= LED_RED;
+                P1OUT ^= LED_GREEN;
+                toggleCount = 0U;
+            }
+            else
+            {
+                toggleCount++;
+            }
             break;                                  // overflow
         default:
             break;

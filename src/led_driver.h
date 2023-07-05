@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define FLASH_RATE_FAST     (25000U)
-#define FLASH_RATE_SLOW     (50000U)
+#define FLASH_RATE_FAST     (31250U)
+#define FLASH_RATE_SLOW     (62500U)
 
 void LedTimerInit(void);
 void LedDriverTimerLoad(const uint16_t value);

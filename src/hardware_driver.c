@@ -1,6 +1,9 @@
-#include <msp430.h>
 
+
+#ifndef UNIT_TESTING
+#include <msp430.h>
 #include "hardware_driver.h"
+#endif
 
 #define LED_RED     (BIT0)
 #define LED_GREEN   (BIT0)

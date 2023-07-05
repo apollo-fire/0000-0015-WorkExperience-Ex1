@@ -1,6 +1,7 @@
+#ifndef UNIT_TESTING
 #include <msp430.h>
-
 #include "button_driver.h"
+#endif
 
 bool buttonEventFlag = false;
 

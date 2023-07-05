@@ -1,5 +1,7 @@
+#ifndef UNIT_TESTING
 #include "led_controller.h"
 #include "led_driver.h"
+#endif
 
 #define FLASH_FAST          (true)
 #define FALSH_SLOW          (false)
