@@ -16,7 +16,7 @@ void PortSetup(void)
 
     // Start LEDs on
     P1OUT = LED_RED;
-    P4OUT = LED_GREEN;
+
 
     //Button input
     P1SEL0 = BIT6;                                 // TA0.CCI2A input capture pin, second function
